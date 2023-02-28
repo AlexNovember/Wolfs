@@ -1,4 +1,4 @@
-// import java.util.Random;
+
 
 public abstract class Animals {
    
@@ -26,7 +26,7 @@ public int getWeight() {
 
 @Override
     public String toString() {
-        return String.format("%s, Age: %d, Weight: %d", this.name,this.age, this.weight);
+        return "{" + this.name + ", age=" + this.age + ", weight=" + this.weight + "}";
     }
-
+ 
 }

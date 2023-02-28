@@ -1,13 +1,20 @@
-import java.security.SecureRandom;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Iterator;
+import java.util.stream.Collectors;
 
-public class WolfCage implements AnimalsCage {
+
+
+
+
+public class WolfCage implements AnimalsCage, Iterable<Wolf> {
 
 protected ArrayList<Wolf> wolfs;
 
 public WolfCage(ArrayList<Wolf> wolfs) {
     this.wolfs = wolfs;
-    // wolfs = new ArrayList();
+    
 }
 
 @Override
@@ -22,15 +29,26 @@ public String toString() {
     return wolfs.size();
 }
 
-@Override
-    public void RandomWolf() {
-        var random = new SecureRandom();
-        var randomElement = wolfs.get(random.nextInt(10));
-        System.out.println(randomElement);
-        }
+    public void sortByAge(){
+        Collections.sort(wolfs, new WolfComparator());
+   }
+    public void sortByWeight(){
+        Collections.sort(wolfs, new WolfWeightComparator());
+}
+    public void FullSort(){
+        // wolfs.stream()
+        // .sorted(Comparator.comparing(Wolf::getWeight)
+        //     .thenComparing(Wolf::getAge))
+        // .collect(Collectors.toList())
+        // .forEach(System.out::println);
+        //  wolfs.sort(Comparator.comparing(Wolf:: getAge).thenComparing(Wolf:: getWeight));
+        // Collections.sort(wolfs, new WolfComparator().thenComparing(new WolfWeightComparator()));
+        Collections.sort(wolfs, new FullComparator());
         
-        
-        // System.out.println("В клетке: ");
-        
-    // throw new UnsupportedOperationException("Unimplemented method 'RandomWolf'");
+   }
+
+    @Override
+    public Iterator<Wolf> iterator() {
+        return new WolfIterator(wolfs);
+    }
 }
